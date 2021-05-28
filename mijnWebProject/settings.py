@@ -102,6 +102,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -127,3 +129,4 @@ MEDIA_URL = '/media/'
 LOGOUT_REDIRECT_URL = 'mijnApp:index'
 LOGIN_REDIRECT_URL = 'mijnApp:index'
 LOGIN_URL = 'accounts:login'
+

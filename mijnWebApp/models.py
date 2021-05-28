@@ -11,3 +11,8 @@ class Artikel(models.Model):
 
     def __str__(self):
         return str(self.art_Nm) + ": €" + str(self.art_Prijs)
+
+
+class PoetsMoment(models.Model):
+    ptm_Moment = models.DateTimeField('Poetsmoment', auto_now_add=True)
+    ptm_Interval = models.DurationField('Poetsinterval', null=True)
