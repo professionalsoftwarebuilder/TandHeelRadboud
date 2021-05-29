@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+    Poetsmoment verwijderen?
+
+{% endblock title %}
+
+{% block content %}
+
+    <h1>Weet u zeker dat u deze poetsmoment wilt verwijderen?</h1>
+<form method="post">
+    {% csrf_token %}
+                        <div class="form-group">
+                                <strong>{{ object }}</strong>
+                                {{ form.errors }}
+                                <br>
+                                <br>
+                                <input type="hidden" name="confirm_delete" value="confirm_delete">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                                                <input class="btn btn-link"
+                       type="button" value="Cancel"
+                       onclick="window.history.go(-1);"/>
+
+                        </div>
+                </form>
+
+{% endblock content %}

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -115,6 +116,10 @@ TIME_ZONE = 'CET'
 USE_I18N = True
 
 USE_L10N = True
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
+
 
 USE_TZ = True
 

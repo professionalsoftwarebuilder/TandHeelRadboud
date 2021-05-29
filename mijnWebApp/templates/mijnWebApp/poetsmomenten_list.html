@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+    Lijst poetsmomenten
+
+{% endblock title %}
+
+
+{% block content %}
+    <table class="table table-borderless">
+        <thead class="border-bottom font-weight-bold">
+            <tr>
+                <td>Activiteit</td>
+                <td>Tijdstip</td>
+                <td>Interval</td>
+                <td>
+                    <a href="{% url 'mijnApp:add_PoetsMoment' %}" class="btn btn-outline-success">
+                        <i class="far fa-plus">Add</i>
+                    </a>
+                </td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for PoetsMoment in PoetsMomenten %}
+            <tr>
+                <td>{{ PoetsMoment.get_ptm_Activity_display }}</td>
+                <td>{{ PoetsMoment.ptm_Moment }}</td>
+                <td>{{ PoetsMoment.ptm_Interval }}</td>
+                <td>
+                    <a href="{% url 'mijnApp:upd_PoetsMoment' PoetsMoment.id %}" class="btn text-secondary px-0">
+                        <i class="far fa-edit fa-lg"></i>
+                        Wijzig
+                    </a>
+                    <a href="{% url 'mijnApp:del_PoetsMoment' PoetsMoment.id %}" class="btn btn-danger">
+                        <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                        Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
