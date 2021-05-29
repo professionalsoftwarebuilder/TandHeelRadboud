@@ -15,6 +15,8 @@ import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+# From heroku
+#BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PROJECT_ROOT = Path(__file__).resolve().parent
 
 
@@ -117,16 +119,13 @@ USE_I18N = True
 
 USE_L10N = True
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
-
-
 USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = '/media/'
@@ -135,3 +134,10 @@ LOGOUT_REDIRECT_URL = 'mijnApp:index'
 LOGIN_REDIRECT_URL = 'mijnApp:index'
 LOGIN_URL = 'accounts:login'
 
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
