@@ -22,8 +22,10 @@ class PoetsMoment(models.Model):
         ('N', 'Normaal')
     )
     ACTIVITY_CHOICE = (
-        ('P', 'Poetsen'),
+        ('P', 'Poetsen Fluor'),
+        ('Z', 'Poetsen Zonder Fluor'),
         ('R', 'Raggen'),
+        ('Q', 'Poetsen & Raggen'),
         ('F', 'Flossen'),
         ('M', 'Mondwater')
     )
@@ -31,7 +33,7 @@ class PoetsMoment(models.Model):
     ptm_Moment = models.DateTimeField('Poetsmoment', auto_now_add=True)
     ptm_Interval = models.DurationField('Poetsinterval', blank=True, null=True)
     ptm_Toothpaste = models.CharField('Type Tandpasta', max_length=1, choices=TYPE_TANDPASTA, default='F')
-    ptm_Activity = models.CharField('Activiteit', max_length=1, choices=ACTIVITY_CHOICE, default='P')
+    ptm_Activity = models.CharField('Activiteit', max_length=1, choices=ACTIVITY_CHOICE, default='Q')
     ptm_Notes = models.TextField('Notities', blank=True, null=True)
 
     class Meta:

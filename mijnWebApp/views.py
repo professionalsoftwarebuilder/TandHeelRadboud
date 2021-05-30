@@ -3,7 +3,9 @@ from .models import *
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.http import HttpResponseRedirect
-
+from datetime import datetime, timezone, timedelta
+from .forms import *
+import pytz
 
 def index(request):
     #deArtikelen = Artikel.objects.all()
@@ -27,8 +29,21 @@ def contact(request):
     return render(request, 'mijnWebApp/contact.html', {})
 
 class PoetsMomentCreateView(CreateView):
+    form_class = PoetsMomentForm
     model = PoetsMoment
-    fields = [ 'ptm_Interval', 'ptm_Toothpaste', 'ptm_Activity', 'ptm_Notes']
+    #fields = [ 'ptm_Interval', 'ptm_Toothpaste', 'ptm_Activity', 'ptm_Notes']
+
+    def get_initial(self):
+        # Get record that was inserted before
+        recBefore = PoetsMoment.objects.latest('ptm_Moment')
+        # Get value from Datatime field
+        timeBefore = getattr(recBefore, 'ptm_Moment')
+        tz = pytz.timezone('Europe/Amsterdam')
+        timeInterval = datetime.now(tz) - timeBefore
+        print('timeintv', timeInterval)
+
+        return {'ptm_Interval': timeInterval}
+
 
 class PoetsMomentUpdateView(UpdateView):
     model = PoetsMoment
