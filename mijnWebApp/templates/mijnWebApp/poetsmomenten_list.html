@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load ps_tags %}
+
 {% block title %}
 
     Lijst poetsmomenten
@@ -26,7 +28,11 @@
             <tr>
                 <td>{{ PoetsMoment.get_ptm_Activity_display }}</td>
                 <td>{{ PoetsMoment.ptm_Moment }}</td>
-                <td>{{ PoetsMoment.ptm_Interval }}</td>
+                {% if PoetsMoment.ptm_Interval %}
+                    <td>{{ PoetsMoment.ptm_Interval|duration }}</td>
+                {% else %}
+                    <td>{{ PoetsMoment.ptm_Interval }}</td>
+                {% endif %}
                 <td>
                     <a href="{% url 'mijnApp:upd_PoetsMoment' PoetsMoment.id %}" class="btn text-secondary px-0">
                         <i class="far fa-edit fa-lg"></i>

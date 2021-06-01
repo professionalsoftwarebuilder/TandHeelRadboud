@@ -4,16 +4,30 @@
     Wijzig Poetsmoment
 {% endblock title %}
 
-
+{% load static %}
 
 {% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/widgets.css' %}"/>
+<script src="{% url 'js_catid' %}"></script>
+<script src="{% static '/admin/js/core.js' %}"></script>
+<link rel="stylesheet" href="{% static 'admin/css/base.css' %}"
+<link rel="stylesheet" href="{% static 'admin/css/widgets.css' %}"
 
     <h1>Wijzig Poetsmoment</h1>
 
     <form method="POST" class="post-form" >
         {% csrf_token %}
+        {{ form.media }}
         {{ form.as_p }}
         <button type="submit" class="btn btn-secondary">Opslaan</button>
     </form>
+
+<script>
+  $(function() {
+    $( ".date_picker" ).datepicker();
+  });
+</script>
 
 {% endblock content %}

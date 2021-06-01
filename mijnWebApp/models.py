@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.utils.timezone import now
+
 
 class Profile(models.Model):
     GENDER_CHOICES = (
@@ -30,7 +32,8 @@ class PoetsMoment(models.Model):
         ('M', 'Mondwater')
     )
     ptm_User = models.ForeignKey(Profile, verbose_name='Bij Gebruiker', on_delete=models.CASCADE, default=1)
-    ptm_Moment = models.DateTimeField('Poetsmoment', auto_now_add=True)
+    # auto_now_add=True
+    ptm_Moment = models.DateTimeField('Poetsmoment', default=now)
     ptm_Interval = models.DurationField('Poetsinterval', blank=True, null=True)
     ptm_Toothpaste = models.CharField('Type Tandpasta', max_length=1, choices=TYPE_TANDPASTA, default='F')
     ptm_Activity = models.CharField('Activiteit', max_length=1, choices=ACTIVITY_CHOICE, default='Q')

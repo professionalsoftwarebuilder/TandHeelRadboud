@@ -29,17 +29,23 @@ def contact(request):
     return render(request, 'mijnWebApp/contact.html', {})
 
 class PoetsMomentCreateView(CreateView):
-    form_class = PoetsMomentForm
     model = PoetsMoment
-    #fields = [ 'ptm_Interval', 'ptm_Toothpaste', 'ptm_Activity', 'ptm_Notes']
+    form_class = PoetsMomentForm
+    #fields = ['ptm_Moment', 'ptm_Interval', 'ptm_Toothpaste', 'ptm_Activity', 'ptm_Notes']
 
     def get_initial(self):
-        # Get record that was inserted before
-        recBefore = PoetsMoment.objects.latest('ptm_Moment')
-        # Get value from Datatime field
-        timeBefore = getattr(recBefore, 'ptm_Moment')
-        tz = pytz.timezone('Europe/Amsterdam')
-        timeInterval = datetime.now(tz) - timeBefore
+        # Set timeInterval to 0
+        timeInterval = timedelta()
+        try:
+            # Get record that was inserted before
+            recBefore = PoetsMoment.objects.latest('ptm_Moment')
+            # Get value from Datatime field
+            timeBefore = getattr(recBefore, 'ptm_Moment')
+            tz = pytz.timezone('Europe/Amsterdam')
+            timeInterval = datetime.now(tz) - timeBefore
+        except:
+            pass
+
         print('timeintv', timeInterval)
 
         return {'ptm_Interval': timeInterval}
