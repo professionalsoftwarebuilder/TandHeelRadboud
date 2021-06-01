@@ -1,3 +1,6 @@
+from datetime import timedelta, datetime
+
+import pytz
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
@@ -44,6 +47,22 @@ class PoetsMoment(models.Model):
 
     def __str__(self):
         return '%s %s' % (self.get_ptm_Activity_display(), self.ptm_Moment.strftime("%Y-%m-%d %H:%M"))
+
+    def get_interval(self):
+        # Set timeInterval to 0
+        timeInterval = timedelta()
+        try:
+            # Get record that was inserted before
+            recBefore = PoetsMoment.objects.latest('ptm_Moment')
+            # Get value from Datatime field
+            timeBefore = getattr(recBefore, 'ptm_Moment')
+            tz = pytz.timezone('Europe/Amsterdam')
+            timeInterval = datetime.now(tz) - timeBefore
+        except:
+            pass
+
+        print('timeintv', timeInterval)
+        return timeInterval
 
     def get_absolute_url(self):
         return reverse('mijnApp:list_PoetsMomenten', kwargs={'usr_id': self.ptm_User_id})

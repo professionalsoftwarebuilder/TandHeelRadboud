@@ -33,8 +33,11 @@ class PoetsMomentCreateView(CreateView):
     form_class = PoetsMomentForm
     #fields = ['ptm_Moment', 'ptm_Interval', 'ptm_Toothpaste', 'ptm_Activity', 'ptm_Notes']
 
-    def get_initial(self):
+    def form_valid(self, form):
+        resp = super().form_valid(form)
+
         # Set timeInterval to 0
+
         timeInterval = timedelta()
         try:
             # Get record that was inserted before
@@ -47,8 +50,26 @@ class PoetsMomentCreateView(CreateView):
             pass
 
         print('timeintv', timeInterval)
+        form.instance.ptm_Interval = timeInterval
+        form.save()
+        return resp
 
-        return {'ptm_Interval': timeInterval}
+    # def get_initial(self):
+    #     # Set timeInterval to 0
+    #     timeInterval = timedelta()
+    #     try:
+    #         # Get record that was inserted before
+    #         recBefore = PoetsMoment.objects.latest('ptm_Moment')
+    #         # Get value from Datatime field
+    #         timeBefore = getattr(recBefore, 'ptm_Moment')
+    #         tz = pytz.timezone('Europe/Amsterdam')
+    #         timeInterval = datetime.now(tz) - timeBefore
+    #     except:
+    #         pass
+    #
+    #     print('timeintv', timeInterval)
+    #
+    #     return {'ptm_Interval': timeInterval}
 
 
 class PoetsMomentUpdateView(UpdateView):
@@ -71,8 +92,8 @@ class PoetsMomentDeleteView(DeleteView):
         return self.success_url
 
     # I need to return the userid to list brushmoments by user
-    def delete(self, request, *args, **kwargs):
-
-        self.get_object().delete()
-        return HttpResponseRedirect(self.get_success_url())
+    # def delete(self, request, *args, **kwargs):
+    #
+    #     self.get_object().delete()
+    #     return HttpResponseRedirect(self.get_success_url())
 
