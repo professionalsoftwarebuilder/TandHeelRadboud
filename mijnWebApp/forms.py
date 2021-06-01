@@ -1,4 +1,3 @@
-#from bootstrap_datepicker_plus import DatePickerInput, DateTimePickerInput
 from django import forms
 #from django.forms.fields import DurationField
 #import django.contrib.admin.widgets
@@ -82,8 +81,6 @@ from .models import *
 #
 
 
-class DateInput(forms.DateTimeInput):
-    input_type = 'datetime'
 
 
 class PoetsMomentForm(forms.ModelForm):
